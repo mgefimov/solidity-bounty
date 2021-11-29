@@ -8,6 +8,8 @@ contract Bounty {
     uint id;
   }
 
+  event Solution(Task task);
+
   uint public count = 0;
   mapping (uint => Task) public bounties;
 
@@ -32,6 +34,7 @@ contract Bounty {
     require(task.prize > 0, "Task not found");
     require(check(id, solution), "Incorrect solution");
     uint prize = task.prize;
+    emit Solution(task);
     delete bounties[id];
     payable(msg.sender).transfer(prize);
   }

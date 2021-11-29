@@ -86,4 +86,14 @@ contract("Bounty", (accounts) => {
     }
     assert.ok(ok);
   });
+
+  it('Проверяем логи', async () => {
+    const events = await instance.getPastEvents("Solution", {
+      fromBlock: 0,
+      toBlock: "latest",
+    });
+    assert.equal(events.length, 1);
+    const event = events[0];
+    assert.equal(event.returnValues.task.id, '1');
+  })
 });
